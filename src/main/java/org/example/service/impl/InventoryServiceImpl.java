@@ -6,7 +6,6 @@ import org.example.entity.InventoryLog;
 import org.example.entity.Product;
 import org.example.repository.InventoryLogRepository;
 import org.example.repository.InventoryRepository;
-import org.example.repository.ProductRepository;
 import org.example.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

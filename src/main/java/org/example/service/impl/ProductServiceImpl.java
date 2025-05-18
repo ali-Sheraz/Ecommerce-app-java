@@ -2,9 +2,12 @@ package org.example.service.impl;
 
 
 import jakarta.transaction.Transactional;
+import org.example.entity.Inventory;
 import org.example.entity.Product;
+import org.example.repository.InventoryRepository;
 import org.example.repository.ProductRepository;
 import org.example.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,17 +17,25 @@ import java.util.Optional;
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService {
+@Autowired
+    private  ProductRepository productRepository;
+@Autowired
+    private  InventoryRepository inventoryRepository;
 
-    private final ProductRepository productRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     @Override
     public Product saveProduct(Product product) {
         product.setCreatedAt(LocalDateTime.now());
-        return productRepository.save(product);
+        Product savedProduct = productRepository.save(product);  // save product first to get ID
+
+        Inventory inventory = new Inventory();
+        inventory.setProduct(savedProduct);
+        inventory.setQuantity(20);  // or some initial stock number
+        inventory.setLastUpdated(LocalDateTime.now());
+        inventoryRepository.save(inventory);  // You need to inject InventoryRepository here!
+
+        return savedProduct;
     }
 
     @Override

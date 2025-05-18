@@ -23,7 +23,7 @@ public class Product {
 
     private String category;
 
-    private BigDecimal price;
+    private double price;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

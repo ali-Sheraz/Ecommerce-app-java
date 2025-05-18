@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface SalesService {
+    Sale createSale(Long productId, int quantitySold);
 
     List<Sale> getSalesByDateRange(LocalDateTime start, LocalDateTime end);
     double getRevenueForPeriod(String period, String start, String end);

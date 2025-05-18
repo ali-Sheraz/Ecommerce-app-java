@@ -1,9 +1,12 @@
 package org.example.service.impl;
 
 import jakarta.transaction.Transactional;
+import org.example.entity.Inventory;
 import org.example.entity.Sale;
+import org.example.repository.InventoryRepository;
 import org.example.repository.SalesRepository;
 import org.example.service.SalesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,11 +18,34 @@ import java.util.Optional;
 @Service
 @Transactional
 public class SalesServiceImpl implements SalesService {
+@Autowired
+    private  SalesRepository salesRepository;
+@Autowired
+    private  InventoryRepository inventoryRepository;
 
-    private final SalesRepository salesRepository;
 
-    public SalesServiceImpl(SalesRepository salesRepository) {
-        this.salesRepository = salesRepository;
+    @Override
+    public Sale createSale(Long productId, int quantitySold) {
+        Inventory inventory = inventoryRepository.findByProductId(productId)
+                .orElseThrow(() -> new RuntimeException("Inventory not found for product id: " + productId));
+
+        if (inventory.getQuantity() < quantitySold) {
+            throw new RuntimeException("Not enough stock for product id: " + productId);
+        }
+
+        // Update inventory
+        inventory.setQuantity(inventory.getQuantity() - quantitySold);
+        inventory.setLastUpdated(LocalDateTime.now());
+        inventoryRepository.save(inventory);
+
+        // Create sale record
+        Sale sale = new Sale();
+        sale.setProduct(inventory.getProduct());
+        sale.setQuantity(quantitySold);
+        sale.setTotalAmount(inventory.getProduct().getPrice() * quantitySold);
+        sale.setSaleDate(LocalDateTime.now());
+
+        return salesRepository.save(sale);
     }
 
     @Override

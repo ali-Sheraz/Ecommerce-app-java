@@ -72,7 +72,7 @@ mvn spring-boot:run
 
 | HTTP Method | Endpoint                  | Description                              |
 |-------------|---------------------------|------------------------------------------|
-| POST        | `/api/products/register`  | Create a new product.                   |
+| POST        | `/api/products/register`  | Create a new product. with inventory     |
 | GET         | `/api/products`           | Retrieve all products.                  |
 | GET         | `/api/products/{id}`      | Retrieve product details by product ID. |
 | PUT         | `/api/products/{id}`      | Update product information by ID.      |
@@ -84,6 +84,7 @@ mvn spring-boot:run
 
 | HTTP Method | Endpoint                             | Description                                                                                     |
 |-------------|------------------------------------|------------------------------------------------------------------------------------------------|
+| POST         | `/api/sales/create`                   | Create sale.   
 | GET         | `/api/sales/{id}`                   | Retrieve sale details by sale ID.                                                             |
 | DELETE      | `/api/sales/{id}`                   | Delete a sale record by its ID.                                                                |
 | GET         | `/api/sales/revenue`                | Get total revenue for a specified period (`daily`, `weekly`, `monthly`, `yearly`). Optional `start` and `end` date parameters supported for custom range. |

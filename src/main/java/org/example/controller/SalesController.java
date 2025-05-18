@@ -20,6 +20,13 @@ public class SalesController {
 @Autowired
     private  SalesService salesService;
 
+    @PostMapping("/create")
+    public ResponseEntity<Sale> createSale(@RequestParam Long productId,
+                                           @RequestParam int quantity) {
+            Sale sale = salesService.createSale(productId, quantity);
+            return ResponseEntity.ok(sale);
+
+    }
 
 
     @GetMapping("/{id}")
