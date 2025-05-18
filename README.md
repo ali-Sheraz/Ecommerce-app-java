@@ -64,7 +64,7 @@ mvn spring-boot:run
 | DELETE      | `/api/inventory/{id}`          | Delete an inventory record by its inventory ID.                                      |
 | GET         | `/api/inventory`               | Retrieve a list of all inventory records.                                            |
 | GET         | `/api/inventory/low-stock`    | Retrieve products with low stock. Optional query parameter `threshold` (default 10). |
-| PUT         | `/api/inventory/update`        | Update inventory quantity. Requires `productId`, `quantity`, and optional `updatedBy` (default "admin"). |
+| PUT         | `/api/inventory/update`        | Update inventory quantity. Requires `productId`, `quantity`, and optional `updatedBy` (default "admin"). and it wil also add entry to inventory log that will track which inventory is previous quantity and new quantity|
 
 ---
 
@@ -72,7 +72,7 @@ mvn spring-boot:run
 
 | HTTP Method | Endpoint                  | Description                              |
 |-------------|---------------------------|------------------------------------------|
-| POST        | `/api/products/register`  | Create a new product. with inventory     |
+| POST        | `/api/products/register`  | Create a new product with by default quantity 20 is set and inventory record also would created     |
 | GET         | `/api/products`           | Retrieve all products.                  |
 | GET         | `/api/products/{id}`      | Retrieve product details by product ID. |
 | PUT         | `/api/products/{id}`      | Update product information by ID.      |
@@ -84,7 +84,7 @@ mvn spring-boot:run
 
 | HTTP Method | Endpoint                             | Description                                                                                     |
 |-------------|------------------------------------|------------------------------------------------------------------------------------------------|
-| POST         | `/api/sales/create`                   | Create sale.   
+| POST         | `/api/sales/create`                   | Create sale when sale created then sold quantity is subtracted from relvant inventory.   
 | GET         | `/api/sales/{id}`                   | Retrieve sale details by sale ID.                                                             |
 | DELETE      | `/api/sales/{id}`                   | Delete a sale record by its ID.                                                                |
 | GET         | `/api/sales/revenue`                | Get total revenue for a specified period (`daily`, `weekly`, `monthly`, `yearly`). Optional `start` and `end` date parameters supported for custom range. |
