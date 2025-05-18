@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.entity.Product;
 import org.example.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +11,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
+@Autowired
+    private  ProductService productService;
 
-    private final ProductService productService;
 
-    // Constructor Injection
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @PostMapping("/register")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {

@@ -4,6 +4,7 @@ package org.example.controller;
 import org.example.entity.Inventory;
 import org.example.service.InventoryService;
 import org.example.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,14 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/inventory")
 public class InventoryController {
-
-    private final InventoryService inventoryService;
-    private final ProductService productService;
-
-    public InventoryController(InventoryService inventoryService, ProductService productService) {
-        this.inventoryService = inventoryService;
-        this.productService = productService;
-    }
+@Autowired
+    private  InventoryService inventoryService;
+@Autowired
+    private  ProductService productService;
 
 
 
